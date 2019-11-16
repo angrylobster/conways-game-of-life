@@ -18,7 +18,7 @@ class Game {
     }
 
     [calXY](i) {
-        return [i / this.width, i % this.width];
+        return [Math.floor(i / this.width), i % this.width];
     }
 
     getCell(x, y) {
@@ -34,7 +34,12 @@ class Game {
     }
 
     next() {
-        this.cellList = this.cellList.map((c, i) => this.calNextState(c, this[calXY](i)));
+        const newGrid = Array(this.width * this.height).fill();
+        for (let i = 0; i < this.cellList.length; i++) {
+            const xy = this[calXY](i);
+            newGrid[i] = this.calNextState(this.getCell(...xy), this.calAliveMates(...xy));
+        }
+        this.cellList = newGrid;
     }
 
     calNextState(state, aliveMates) {

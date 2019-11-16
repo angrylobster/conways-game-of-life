@@ -91,6 +91,7 @@ describe('Game', () => {
         game.setAlive(1, 0);
         game.setAlive(0, 1);
         game.next();
+        console.log(game.cellList);
         expect(game.getCell(1, 1)).to.equal(ALIVE);
 
     });
